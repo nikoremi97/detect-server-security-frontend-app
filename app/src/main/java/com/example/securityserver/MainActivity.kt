@@ -3,10 +3,11 @@ package com.example.securityserver
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.example.securityserver.data.ServiceBase
 import com.example.securityserver.ui.main.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity  :  AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +21,8 @@ class MainActivity : AppCompatActivity() {
         tabs.getTabAt(0)?.setIcon(R.drawable.lens)
         tabs.getTabAt(1)?.setIcon(R.drawable.clock)
 
-/*
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+         ServiceBase.getServers()
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }*/
+
     }
 }
