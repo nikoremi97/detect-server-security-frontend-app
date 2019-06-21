@@ -1,4 +1,4 @@
-package com.example.securityserver.splash
+package com.example.securityserver.ui.main.splash
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  android:orientation="horizontal"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent">
+
+
+	<com.google.android.material.card.MaterialCardView
+			android:id="@+id/material_card_view"
+			app:cardCornerRadius="5dp"
+			android:layout_width="match_parent"
+			android:layout_height="80dp"
+			android:minHeight="200dp"
+			android:layout_margin="8dp">
+		<LinearLayout
+				android:id="@+id/material_card_view_linear_layout"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="77dp" android:layout_margin="2dp">
+			<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/material_card_view_logo"
+					android:layout_width="70dp"
+					android:layout_height="70dp" app:srcCompat="@mipmap/ic_launcher_round"
+					android:layout_alignParentStart="true"
+					android:maxHeight="70dp"
+					android:maxWidth="70dp"
+					android:layout_marginStart="8dp" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+					android:layout_weight="0"/>
+			<LinearLayout
+					android:id="@+id/material_card_view_linear_layout_data"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" android:layout_weight="1">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/material_card_domain"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Hello card"
+						android:textSize="30dp"/>
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/material_card_title"
+						android:text="Title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textSize="20dp"/>
+			</LinearLayout>
+			<LinearLayout
+					android:id="@+id/material_card_domain_layout_ssl"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" android:layout_weight="2"
+					android:gravity="center|right">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/material_card_domain_ssl"
+						android:text="SSL"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:textSize="20dp"
+						android:layout_gravity="center|right"
+				/>
+			</LinearLayout>
+		</LinearLayout>
+
+	</com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

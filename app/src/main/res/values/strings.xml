@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">SecurityServer</string>
+	<string name="app_name">SecurityServer</string>
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="test_server_ssl">Test the SSL security for a given domain</string>
+	<string name="scan_web_page">Scan web page!</string>
+	<string name="domain">Domain</string>
 
 </resources>
