@@ -5,4 +5,7 @@
 	<string name="scan_web_page">Scan web page!</string>
 	<string name="domain">Domain</string>
 
+	<string name="backend_url">http:192.168.1.57:3000/detectServerSecurity/api/v1</string>
+	<string name="get_servers_endpoint">/getServers</string>
+	<string name="cant_connect_server">Ups! Can´t connect with server right now. Try again! </string>
 </resources>

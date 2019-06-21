@@ -3,21 +3,20 @@
 			  xmlns:app="http://schemas.android.com/apk/res-auto"
 			  android:orientation="horizontal"
 			  android:layout_width="match_parent"
-			  android:layout_height="match_parent">
+			  android:layout_height="wrap_content">
 
 
 	<com.google.android.material.card.MaterialCardView
 			android:id="@+id/material_card_view"
 			app:cardCornerRadius="5dp"
 			android:layout_width="match_parent"
-			android:layout_height="80dp"
-			android:minHeight="200dp"
-			android:layout_margin="8dp">
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="4dp" android:layout_marginVertical="4dp">
 		<LinearLayout
 				android:id="@+id/material_card_view_linear_layout"
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
-				android:layout_height="77dp" android:layout_margin="2dp">
+				android:layout_height="wrap_content">
 			<androidx.appcompat.widget.AppCompatImageView
 					android:id="@+id/material_card_view_logo"
 					android:layout_width="70dp"
@@ -26,21 +25,21 @@
 					android:maxHeight="70dp"
 					android:maxWidth="70dp"
 					android:layout_marginStart="8dp" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-					android:layout_weight="0"/>
+					android:layout_weight="0" android:layout_gravity="center"/>
 			<LinearLayout
 					android:id="@+id/material_card_view_linear_layout_data"
 					android:orientation="vertical"
 					android:layout_width="match_parent"
-					android:layout_height="match_parent" android:layout_weight="1">
+					android:layout_height="wrap_content" android:layout_weight="1">
 				<androidx.appcompat.widget.AppCompatTextView
 						android:id="@+id/material_card_domain"
-						android:layout_width="match_parent"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="Hello card"
-						android:textSize="30dp"/>
+						android:text="www.averylong.domain.com"
+						android:textSize="24sp"/>
 				<androidx.appcompat.widget.AppCompatTextView
 						android:id="@+id/material_card_title"
-						android:text="Title"
+						android:text="Title very long like this manTitle very long like this man"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:textSize="20dp"/>
@@ -50,15 +49,16 @@
 					android:orientation="vertical"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent" android:layout_weight="2"
-					android:gravity="center|right">
+					android:gravity="center|right"
+					android:layout_gravity="center|right|center_horizontal|center_vertical">
 				<androidx.appcompat.widget.AppCompatTextView
 						android:id="@+id/material_card_domain_ssl"
 						android:text="SSL"
 						android:layout_width="fill_parent"
 						android:layout_height="wrap_content"
-						android:textSize="20dp"
+						android:textSize="18sp"
 						android:layout_gravity="center|right"
-				/>
+						android:gravity="center"/>
 			</LinearLayout>
 		</LinearLayout>
 

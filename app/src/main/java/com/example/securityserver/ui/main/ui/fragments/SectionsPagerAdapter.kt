@@ -1,11 +1,11 @@
-package com.example.securityserver.ui.main
+package com.example.securityserver.ui.main.ui.fragments
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.securityserver.ui.main.ui.recyclerView.ServersHistoryFragment
+import com.example.securityserver.ui.main.ui.fragments.recyclerView.ServersHistoryFragment
 
 
 /**

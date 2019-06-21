@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:orientation="vertical"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		tools:context=".ui.main.DomainList"
-		android:background="@color/backgroundFragments"
-		android:id="@+id/fragment_servers_history"
->-->
-
-<FrameLayout
+<ScrollView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
 		android:orientation="vertical"
@@ -21,12 +10,23 @@
 		android:id="@+id/fragment_servers_history"
 >
 
+	<!--<FrameLayout-->
+	<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+	<!--xmlns:tools="http://schemas.android.com/tools"-->
+	<!--android:orientation="vertical"-->
+	<!--android:layout_width="match_parent"-->
+	<!--android:layout_height="match_parent"-->
+	<!--tools:context=".ui.main.DomainList"-->
+	<!--android:background="@color/backgroundFragments"-->
+	<!--android:id="@+id/fragment_servers_history"-->
+	<!--&gt;-->
+
 
 	<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/recycler_view_list_domains"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"/>
 
-</FrameLayout>
+	<!--</FrameLayout>-->
 
-		<!--</ScrollView>-->
+</ScrollView>

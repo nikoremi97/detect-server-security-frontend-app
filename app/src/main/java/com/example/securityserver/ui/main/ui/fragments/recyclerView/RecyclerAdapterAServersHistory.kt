@@ -1,4 +1,4 @@
-package com.example.securityserver.ui.main.ui.recyclerView
+package com.example.securityserver.ui.main.ui.fragments.recyclerView
 
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +23,8 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerV
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		println("inside onCreateViewHolder")
-		val fragmentList = LayoutInflater.from(parent.context).inflate(R.layout.fragment_servers_history, parent, false)
+		println("inside onCreateViewHolder >>>")
+		val fragmentList = LayoutInflater.from(parent.context).inflate(R.layout.item_domain, parent, false)
 		viewHolder = ViewHolder(fragmentList)
 
 		return viewHolder!!
@@ -46,7 +46,7 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerV
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		println("inside onBindViewHolder")
+		println("inside onBindViewHolder >>>")
 
 		val domain = domains!![position]
 		print(domain)
