@@ -3,6 +3,7 @@ package com.example.securityserver.ui.main.ui.fragments.recyclerView
 import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -20,7 +22,8 @@ import com.example.securityserver.services.ServiceBaseSingleton
 import org.json.JSONObject
 
 
-class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener {
+class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener,
+	SwipeRefreshLayout.OnRefreshListener {
 
 	companion object {
 		/**
@@ -41,6 +44,9 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 
 	// domainList will show our Domains in a RecyclerView
 	private var domainList: RecyclerView? = null
+	// Swipe refresh layout that allows to refresh servers pulling down the screen
+	private var swipeRefreshDomains: SwipeRefreshLayout? = null
+
 	// ProgressBar dialog
 	private var progressCircularBar: Dialog? = null
 	// arrayDomain will contain the domains to put into domainList
@@ -48,7 +54,6 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-//		this.onAttach()
 		arguments?.let { }
 	}
 
@@ -66,6 +71,13 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		domainList?.layoutManager = layoutManager
 		domainList?.adapter = recyclerAdapter
 
+		// associate swipeRefreshDomains to its layout item
+		swipeRefreshDomains = viewServerHistory.findViewById(R.id.swipe_refresh_domains)
+		swipeRefreshDomains?.setOnRefreshListener(this)
+		val color2 = resources.getColor(R.color.white)
+		val color1 = resources.getColor(R.color.colorPrimary)
+		val color3 = resources.getColor(R.color.colorPrimaryDark)
+		swipeRefreshDomains?.setColorSchemeColors(color1, color2, color3)
 		// INITIALIZE THE REQUEST TO GET SERVERS FROM DB
 		getDomainsInDB()
 
@@ -94,6 +106,12 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlEndpoint, null, this, this)
 		// add request to our ServiceBaseSingleton request queue
 		ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
+	}
+
+	// onRefresh is called every time fragment is swiped down
+	override fun onRefresh() {
+		getDomainsInDB()
+		Handler().postDelayed({ swipeRefreshDomains?.isRefreshing = false }, 5000)
 	}
 
 	//region Response from Volley Request region

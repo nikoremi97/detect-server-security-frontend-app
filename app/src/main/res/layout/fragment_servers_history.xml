@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context=".ui.main.DomainList"
-		android:background="@color/backgroundFragments"
-		android:id="@+id/fragment_servers_history"
+		android:id="@+id/swipe_refresh_domains"
 >
 
-	<!--<FrameLayout-->
-	<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-	<!--xmlns:tools="http://schemas.android.com/tools"-->
-	<!--android:orientation="vertical"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="match_parent"-->
-	<!--tools:context=".ui.main.DomainList"-->
-	<!--android:background="@color/backgroundFragments"-->
-	<!--android:id="@+id/fragment_servers_history"-->
-	<!--&gt;-->
 
-
-	<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recycler_view_list_domains"
+	<ScrollView
+			android:orientation="vertical"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent"
+			android:background="@color/backgroundFragments"
+			android:id="@+id/fragment_servers_history"
+	>
 
-	<!--</FrameLayout>-->
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recycler_view_list_domains"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
 
-</ScrollView>
+	</ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

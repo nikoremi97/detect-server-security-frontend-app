@@ -60,7 +60,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		scanButton = scanAnalyzerView.findViewById(R.id.scan_domain_button)
 		scanButton?.setOnClickListener(this)
 
-		progressCircularBar = Dialog(context, android.R.style.Theme_Translucent_NoTitleBar)
+		progressCircularBar = Dialog(context!!, android.R.style.Theme_Translucent_NoTitleBar)
 
 		// get and validate user input
 		userInput = scanAnalyzerView.findViewById(R.id.domain_input_edit_text)

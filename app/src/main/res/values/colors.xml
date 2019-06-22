@@ -3,7 +3,7 @@
   <color name="colorPrimary">#453cff</color>
   <color name="colorPrimaryDark">#000cca</color>
   <color name="colorAccent">#00BCD4</color>
-  <color name="textColorPrimary">#FFFFFF</color>
+  <color name="white">#FFFFFF</color>
   <color name="backgroundFragments">#EBEBEB</color>
   <color name="textColorFragments">#6F6D6D</color>
 
