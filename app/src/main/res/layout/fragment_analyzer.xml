@@ -47,12 +47,16 @@
 					android:id="@+id/domain_input_edit_text"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:hint="@string/domain" android:layout_marginBottom="10dp"/>
+					android:hint="@string/domain"
+					android:layout_marginBottom="10dp"
+					android:inputType="textWebEditText"
+
+			/>
 		</com.google.android.material.textfield.TextInputLayout>
 
 
 		<com.google.android.material.button.MaterialButton
-				android:id="@+id/try_test_button"
+				android:id="@+id/scan_domain_button"
 				style="@style/Widget.MaterialComponents.Button.TextButton"
 				android:text="@string/scan_web_page"
 				android:layout_width="match_parent"

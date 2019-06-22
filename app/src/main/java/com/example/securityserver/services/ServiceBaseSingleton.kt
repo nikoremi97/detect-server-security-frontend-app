@@ -4,6 +4,7 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.example.securityserver.data.Domain
 import com.example.securityserver.data.StoredDomains
 import com.google.gson.Gson
 
@@ -31,6 +32,18 @@ class ServiceBaseSingleton constructor(context: Context) {
 		if (content != null) {
 			try {
 				return Gson().fromJson(content, StoredDomains::class.java)
+
+			} catch (e: Exception) {
+				print("error gson >>>")
+				print(e)
+			}
+		}
+		return null
+	}
+	fun parseDomain(content: String?): Domain? {
+		if (content != null) {
+			try {
+				return Gson().fromJson(content, Domain::class.java)
 
 			} catch (e: Exception) {
 				print("error gson >>>")
