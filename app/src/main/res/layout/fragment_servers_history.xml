@@ -6,19 +6,31 @@
 		android:id="@+id/swipe_refresh_domains"
 >
 
-
 	<ScrollView
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:background="@color/backgroundFragments"
-			android:id="@+id/fragment_servers_history"
-	>
+			android:id="@+id/fragment_servers_history">
 
-		<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/recycler_view_list_domains"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"/>
+		<androidx.appcompat.widget.LinearLayoutCompat android:layout_width="match_parent"
+													  android:layout_height="wrap_content">
+			<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/recycler_view_list_domains"
+					android:visibility="gone"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
 
+			<include
+					android:id="@+id/empty_domain_layout"
+					layout="@layout/empty_domain_array"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:visibility="visible"
+			/>
+
+		</androidx.appcompat.widget.LinearLayoutCompat>
 	</ScrollView>
+
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

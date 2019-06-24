@@ -5,7 +5,6 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="wrap_content">
 
-
 	<com.google.android.material.card.MaterialCardView
 			android:id="@+id/material_card_view"
 			app:cardCornerRadius="5dp"

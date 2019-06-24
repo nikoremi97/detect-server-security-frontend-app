@@ -21,6 +21,7 @@ import com.example.securityserver.services.ServiceBaseSingleton
 import com.google.android.material.button.MaterialButton
 import org.json.JSONObject
 
+
 class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
 	companion object {
@@ -39,6 +40,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 
 	// Components in fragments
 	private var userInput: EditText? = null
+	private var domainInputText: String = ""
 	private var scanButton: MaterialButton? = null
 
 	// ProgressBar dialog
@@ -75,6 +77,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		if (isValidInput) {
 			println("userInputText >>>>>")
 			println(userInputText)
+			domainInputText = userInputText
 			scanDomain(userInputText)
 		}
 	}
@@ -101,23 +104,35 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		progressCircularBar?.setCancelable(false)
 		progressCircularBar?.show()
 
-		// creates the json form with "domain" field and the given domain
-		val jsonBody = JSONObject()
-		jsonBody.put("domain", domain)
+		try {
+			// creates the json form with "domain" field and the given domain
+			val jsonBody = JSONObject()
+			println("domain >>>")
+			println(domain)
+			jsonBody.put("domain", domain)
 
-		// this is the endpoint in backend for a new domain
-		val urlEndpoint = getString(R.string.backend_url) + getString(R.string.new_domain_endpoint)
+			// this is the endpoint in backend for a new domain
+			val urlEndpoint = getString(R.string.backend_url) + getString(R.string.new_domain_endpoint)
+			// jsonObjectRequest will connect with volley to make the requests
+			val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, urlEndpoint, jsonBody, this, this)
+			// add request to our ServiceBaseSingleton request queue
+			ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
 
-		// jsonObjectRequest will connect with volley to make the requests
-		val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, urlEndpoint, jsonBody, this, this)
-		// add request to our ServiceBaseSingleton request queue
-		ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
+		} catch (e: Exception) {
+			progressCircularBar?.dismiss()
+			if (activity != null) {
+				Toast.makeText(activity, getString(R.string.cant_scan_server), Toast.LENGTH_LONG).show()
+			}
+		}
+
 	}
 
 	//region Response from Volley Request region
 	override fun onResponse(response: JSONObject) {
 		progressCircularBar?.dismiss()
 
+		println("response >>>")
+		println(response)
 		println(response.toString())
 		try {
 
@@ -126,7 +141,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		} catch (e: Exception) {
 			println(e)
 			if (activity != null) {
-				Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
+				Toast.makeText(activity, getString(R.string.cant_scan_server), Toast.LENGTH_LONG).show()
 			}
 		}
 	}
@@ -138,6 +153,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
 		}
 	}
+
 	//endregion
 
 	//region User input validation region
@@ -170,7 +186,6 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	// Returns true if the given string is a valid domain name, matching with Patterns.DOMAIN_NAME.
 	private fun String.isValidDomain(): Boolean = Patterns.DOMAIN_NAME.matcher(this).matches()
 	//endregion
-
 
 	override fun onDetach() {
 		super.onDetach()

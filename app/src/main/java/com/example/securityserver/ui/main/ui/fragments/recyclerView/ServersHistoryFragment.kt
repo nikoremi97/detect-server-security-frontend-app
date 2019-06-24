@@ -1,7 +1,6 @@
 package com.example.securityserver.ui.main.ui.fragments.recyclerView
 
 import android.app.Dialog
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -40,8 +39,6 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			}
 	}
 
-	private var listener: OnFragmentInteractionListener? = null
-
 	// domainList will show our Domains in a RecyclerView
 	private var domainList: RecyclerView? = null
 	// Swipe refresh layout that allows to refresh servers pulling down the screen
@@ -51,6 +48,11 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	private var progressCircularBar: Dialog? = null
 	// arrayDomain will contain the domains to put into domainList
 	private var arrayDomain = arrayOf<Domain>()
+	private var emptyDomainView: View? = null
+
+	// recycler adapter to insert Domains in DB
+	private val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
+
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -62,14 +64,22 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		// inflate view for fragment
 		val viewServerHistory: View = inflater.inflate(R.layout.fragment_servers_history, container, false)
 
+		progressCircularBar = Dialog(context!!, android.R.style.Theme_Translucent_NoTitleBar)
+
 		// creates layout manager and pass an empty array to the recycler adapter
 		val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-		val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
 
 		// config recycler view values
 		domainList = viewServerHistory.findViewById(R.id.recycler_view_list_domains)
 		domainList?.layoutManager = layoutManager
+
+		// empty view in recycler view
+		emptyDomainView= viewServerHistory.findViewById(R.id.empty_domain_layout)
+
+		// set AdapterDataObserver to adapter to show empty domain View
+
 		domainList?.adapter = recyclerAdapter
+		checkEmpty()
 
 		// associate swipeRefreshDomains to its layout item
 		swipeRefreshDomains = viewServerHistory.findViewById(R.id.swipe_refresh_domains)
@@ -78,20 +88,11 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		val color1 = resources.getColor(R.color.colorPrimary)
 		val color3 = resources.getColor(R.color.colorPrimaryDark)
 		swipeRefreshDomains?.setColorSchemeColors(color1, color2, color3)
+
 		// INITIALIZE THE REQUEST TO GET SERVERS FROM DB
 		getDomainsInDB()
 
 		return viewServerHistory
-	}
-
-	// TODO: Rename method, update argument and hook method into UI event
-	fun onButtonPressed(uri: Uri) {
-		listener?.onFragmentInteraction(uri)
-	}
-
-	interface OnFragmentInteractionListener {
-		// TODO: Update argument type and name
-		fun onFragmentInteraction(uri: Uri)
 	}
 
 	private fun getDomainsInDB() {
@@ -99,13 +100,21 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		progressCircularBar?.setContentView(R.layout.progress_bar_layout)
 		progressCircularBar?.setCancelable(false)
 		progressCircularBar?.show()
-
-		// create the url for the getServers endpoint
-		val urlEndpoint = getString(R.string.backend_url) + getString(R.string.get_domain_endpoint)
-		// jsonObjectRequest will connect with volley to make the requests
-		val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlEndpoint, null, this, this)
-		// add request to our ServiceBaseSingleton request queue
-		ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
+		try {
+			// create the url for the getServers endpoint
+//		val urlEndpoint = getString(R.string.backend_url) + getString(R.string.get_domain_endpoint)
+			val urlEndpoint = "http://192.168.1.57:3000/detectServerSecurity/api/v1/getServers"
+			println(urlEndpoint)
+			// jsonObjectRequest will connect with volley to make the requests
+			val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlEndpoint, null, this, this)
+			// add request to our ServiceBaseSingleton request queue
+			ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
+		} catch (e: Exception){
+			progressCircularBar?.dismiss()
+			if (activity != null) {
+				Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
+			}
+		}
 	}
 
 	// onRefresh is called every time fragment is swiped down
@@ -114,6 +123,11 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		Handler().postDelayed({ swipeRefreshDomains?.isRefreshing = false }, 5000)
 	}
 
+	private fun checkEmpty() {
+		println("checkEmpty >>>")
+		emptyDomainView?.visibility = if (recyclerAdapter.itemCount == 0) View.VISIBLE else View.GONE
+		domainList?.visibility = if (recyclerAdapter.itemCount == 0) View.GONE else View.VISIBLE
+	}
 	//region Response from Volley Request region
 	override fun onResponse(response: JSONObject) {
 		progressCircularBar?.dismiss()
@@ -121,9 +135,11 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			val storedDomains = ServiceBaseSingleton.getInstance(context!!).parseStoredDomains(response.toString())
 			arrayDomain = arrayDomain.plus(storedDomains!!.items)
 
-			val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
+//			val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
+			recyclerAdapter.domains = arrayDomain
 			domainList?.adapter = recyclerAdapter
 
+			checkEmpty()
 		} catch (e: Exception) {
 			println(e)
 			if (activity != null) {
@@ -135,14 +151,12 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	override fun onErrorResponse(error: VolleyError) {
 		progressCircularBar?.dismiss()
 		println(error)
+		println(error.stackTrace)
+		println(error.networkResponse)
 		if (activity != null) {
 			Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
 		}
 	}
 	//endregion
 
-	override fun onDetach() {
-		super.onDetach()
-		listener = null
-	}
 }

@@ -11,10 +11,11 @@ import com.example.securityserver.data.Domain
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_domain.view.*
 
-class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerView.Adapter<RecyclerAdapterAServersHistory.ViewHolder>() {
+class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) :
+	RecyclerView.Adapter<RecyclerAdapterAServersHistory.ViewHolder>() {
 
 	var domains: Array<Domain>? = null
-	var viewHolder: ViewHolder? = null
+	private var viewHolder: ViewHolder? = null
 
 	init {
 		println("inside recycler view >>>")
@@ -36,13 +37,6 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerV
 		println("inside getItemCount >>>")
 		println(this.domains?.size!!)
 		return this.domains?.size!!
-//		val length = this.domains?.size!!
-//		if ( length > 0) {
-//			return length
-//		} else {
-//			return 0
-//
-//		}
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -57,7 +51,7 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerV
 	}
 
 	class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		var itemDomainView = view
+		val itemDomainView = view
 
 		var logo: AppCompatImageView? = null
 		var name: AppCompatTextView? = null
@@ -85,7 +79,6 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) : RecyclerV
 
 			}
 		}
-
 	}
 
 }
