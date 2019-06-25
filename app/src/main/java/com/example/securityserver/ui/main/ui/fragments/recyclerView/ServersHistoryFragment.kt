@@ -1,6 +1,7 @@
 package com.example.securityserver.ui.main.ui.fragments.recyclerView
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -18,11 +19,13 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.example.securityserver.R
 import com.example.securityserver.data.Domain
 import com.example.securityserver.services.ServiceBaseSingleton
+import com.example.securityserver.ui.main.ui.domainDetails.DomainDetailsActivity
 import com.example.securityserver.utils.Utils
 import org.json.JSONObject
 
+// ServersHistoryFragment  is the fragment that show all Domains stored in DB
 class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener,
-	SwipeRefreshLayout.OnRefreshListener {
+	SwipeRefreshLayout.OnRefreshListener, RecyclerAdapterAServersHistory.OnClickDomainListener {
 
 	companion object {
 		/**
@@ -52,7 +55,7 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	private var arrayDomain = arrayOf<Domain>()
 	private var emptyDomainView: View? = null
 	// recycler adapter to insert Domains in DB
-	private val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
+	private var recyclerAdapter: RecyclerAdapterAServersHistory? = null
 
 	//region Functions
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,10 +76,12 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		// config recycler view values
 		domainList = viewServerHistory.findViewById(R.id.recycler_view_list_domains)
 		domainList?.layoutManager = layoutManager
+
+		recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain, this, context)
 		domainList?.adapter = recyclerAdapter
 
 		// empty view in recycler view
-		emptyDomainView= viewServerHistory.findViewById(R.id.empty_domain_layout)
+		emptyDomainView = viewServerHistory.findViewById(R.id.empty_domain_layout)
 
 		checkEmpty()
 
@@ -101,21 +106,19 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		progressCircularBar?.show()
 		try {
 			// create the url for the getServers endpoint
-//		val urlEndpoint = getString(R.string.backend_url) + getString(R.string.get_domain_endpoint)
-			val urlEndpoint = "http://192.168.1.57:3000/detectServerSecurity/api/v1/getServers"
-			println(urlEndpoint)
+			val urlEndpoint = getString(R.string.backend_url) + getString(R.string.get_domain_endpoint)
+
 			// jsonObjectRequest will connect with volley to make the requests
 			val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlEndpoint, null, this, this)
 			// add request to our ServiceBaseSingleton request queue
 			ServiceBaseSingleton.getInstance(context!!).addToRequestQueue(jsonObjectRequest)
-		} catch (e: Exception){
+		} catch (e: Exception) {
 			progressCircularBar?.dismiss()
 			if (activity != null) {
 				Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
 			}
 		}
 	}
-
 
 	// onRefresh is called every time fragment is swiped down
 	override fun onRefresh() {
@@ -125,22 +128,45 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 
 	private fun checkEmpty() {
 		println("checkEmpty >>>")
-		emptyDomainView?.visibility = if (recyclerAdapter.itemCount == 0) View.VISIBLE else View.GONE
-		domainList?.visibility = if (recyclerAdapter.itemCount == 0) View.GONE else View.VISIBLE
+		emptyDomainView?.visibility = if (recyclerAdapter?.itemCount == 0) View.VISIBLE else View.GONE
+		domainList?.visibility = if (recyclerAdapter?.itemCount == 0) View.GONE else View.VISIBLE
 	}
+
+	// onDomainClick of OnClickDomainListener, takes the clicked item in adapter and gets its index to get that index
+	// in arrayDomain and create a new DomainDetailsActivity
+	override fun onDomainClick(position: Int) {
+		try {
+			// gets current domain and serialize to new Activity
+			val currentDomain = arrayDomain[position]
+			val intent = Intent(activity, DomainDetailsActivity::class.java)
+			val bundleObject = Bundle()
+			bundleObject.putSerializable("domain", currentDomain )
+			intent.putExtras(bundleObject)
+			startActivity(intent)
+
+		} catch (e: Exception) {
+			println(e)
+			if (activity != null) {
+				Toast.makeText(activity, getString(R.string.cant_scan_server), Toast.LENGTH_LONG).show()
+			}
+		}
+	}
+
 	//endregion
 
 	//region Response from Volley Request region
 	override fun onResponse(response: JSONObject) {
 		progressCircularBar?.dismiss()
 		try {
+			// Parse response JSON to StoredDomain class
 			val storedDomains = Utils.parseStoredDomains(response.toString())
 			arrayDomain = storedDomains!!.items
 
-//			val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
-			recyclerAdapter.domains = arrayDomain
+			// set adapter's new elements
+			recyclerAdapter?.domains = arrayDomain
 			domainList?.adapter = recyclerAdapter
 
+			// check if it's empty again
 			checkEmpty()
 		} catch (e: Exception) {
 			println(e)
@@ -150,11 +176,10 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		}
 	}
 
+	// Handles an ErrorResponse from the VolleyRequestQueue
 	override fun onErrorResponse(error: VolleyError) {
 		progressCircularBar?.dismiss()
-		println(error)
-		println(error.stackTrace)
-		println(error.networkResponse)
+
 		if (activity != null) {
 			Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
 		}

@@ -4,9 +4,6 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
-import com.example.securityserver.data.Domain
-import com.example.securityserver.data.StoredDomains
-import com.google.gson.Gson
 
 class ServiceBaseSingleton constructor(context: Context) {
 
@@ -14,6 +11,7 @@ class ServiceBaseSingleton constructor(context: Context) {
 		@Volatile
 		private var INSTANCE: ServiceBaseSingleton? = null
 
+		// to use the same instance every time we use this class
 		fun getInstance(context: Context) =
 			INSTANCE ?: synchronized(this) {
 				INSTANCE ?: ServiceBaseSingleton(context).also {

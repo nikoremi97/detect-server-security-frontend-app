@@ -16,6 +16,7 @@ class DomainDetailsActivity : AppCompatActivity() {
 	//region Activity components
 	// view components
 	private var domainLogo: AppCompatImageView? = null
+	private var sslGradeIndicator: AppCompatImageView? = null
 	private var domainName: AppCompatTextView? = null
 	private var domainTitle: AppCompatTextView? = null
 	private var domainSSLGrade: AppCompatTextView? = null
@@ -43,6 +44,7 @@ class DomainDetailsActivity : AppCompatActivity() {
 		supportActionBar?.setHomeButtonEnabled(true)
 		// set views
 		domainLogo = findViewById(R.id.domain_description_view_logo)
+		sslGradeIndicator = findViewById(R.id.server_domain_ssl_indicator)
 		domainName = findViewById(R.id.domain_description_view_domain)
 		domainTitle = findViewById(R.id.domain_description_view_domain_title)
 		domainSSLGrade = findViewById(R.id.server_domain_ssl_grade)
@@ -59,16 +61,14 @@ class DomainDetailsActivity : AppCompatActivity() {
 		val bundleObject = intent.extras
 		domain = bundleObject?.getSerializable("domain") as Domain
 
-		println("domain from serializable >>>>")
-		println(domain?.domain)
-		println(domain?.title)
 		recyclerAdapter.servers = domain?.servers
 		serversList?.adapter = recyclerAdapter
 
+		// change views components values
 		setViews(domain)
-
 	}
 
+	// setViews change UI values depending on a given Domain object
 	private fun setViews(domain: Domain?) {
 		Utils.updateImageViewWithUrl(domain?.logo, domainLogo)
 		domainName?.text = domain?.domain
@@ -77,19 +77,9 @@ class DomainDetailsActivity : AppCompatActivity() {
 		domainPreviousSSLGrade?.text = domain?.previous_ssl_grade
 		domainServersChanged?.text = domain?.servers_changed.toString()
 		domainIsDown?.text = domain?.is_down.toString()
+		sslGradeIndicator?.background = Utils.updateSSLGradeIndicator(domain?.ssl_grade, this)
 	}
-//
-//	/**
-//	 * To change card icons with domain logos
-//	 */
-//	private fun updateWithUrl(url: String?) {
-//		try {
-//			Picasso.get().load(url).error(R.drawable.security_server_color_primary).resize(70, 70).centerCrop()
-//				.into(domainLogo)
-//		} catch (e: Exception) {
-//			println(e)
-//		}
-//	}
 
 	//endregion
+
 }

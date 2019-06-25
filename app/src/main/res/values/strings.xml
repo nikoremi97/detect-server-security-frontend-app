@@ -5,7 +5,7 @@
 	<string name="test_server_ssl">Test the SSL security for a given domain</string>
 	<string name="scan_web_page">Scan web page!</string>
 	<string name="domain">Domain</string>
-	<string name="empty_domains_message">There´s no domains analyzed yet. Try pulling down to refresh</string>
+	<string name="empty_domains_message">There´s no domains analyzed yet. Try to pull down to refresh</string>
 
 	<!-- Backend urls-->
 	<string name="backend_url">"http://192.168.1.57:3000/detectServerSecurity/api/v1"</string>

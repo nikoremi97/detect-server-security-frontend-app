@@ -6,8 +6,8 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_margin="8dp"
-		tools:context=".ui.main.ui.domainDetails.DomainDetailsActivity">
+		tools:context=".ui.main.ui.domainDetails.DomainDetailsActivity" android:layout_marginHorizontal="8dp"
+		android:layout_marginTop="8dp">
 
 	<androidx.appcompat.widget.LinearLayoutCompat
 			android:id="@+id/domain_description_linear_layout"
@@ -57,23 +57,35 @@
 
 		<TableRow
 				android:minHeight="20dp"
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_weight="1">
+				android:layout_width="wrap_content">
 			<androidx.appcompat.widget.AppCompatTextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:text="@string/domain_ssl_grade"
 					android:padding="2dp"
-					android:textColor="@color/textColorFragments" android:layout_weight="1"/>
+					android:textColor="@color/textColorFragments" android:layout_weight="1" android:textSize="16sp"/>
+			<androidx.appcompat.widget.LinearLayoutCompat
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:orientation="horizontal"
+			>
 			<androidx.appcompat.widget.AppCompatTextView
 					android:id="@+id/server_domain_ssl_grade"
-					android:layout_width="match_parent"
+					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
 					android:text="A"
 					android:padding="2dp"
 					android:paddingStart="4dp"
 					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/server_domain_ssl_indicator"
+					android:layout_marginLeft="2dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/ssl_indicator_f"
+					android:layout_gravity="center"
+			/>
+			</androidx.appcompat.widget.LinearLayoutCompat>
 		</TableRow>
 
 		<TableRow
@@ -85,7 +97,7 @@
 					android:layout_height="wrap_content"
 					android:text="@string/domain_previous_ssl_grade"
 					android:padding="2dp"
-					android:textColor="@color/textColorFragments"/>
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
 			<androidx.appcompat.widget.AppCompatTextView
 					android:id="@+id/server_domain_previous_ssl_grade"
 					android:layout_width="match_parent"
@@ -106,7 +118,7 @@
 					android:layout_height="wrap_content"
 					android:text="@string/domain_servers_changed"
 					android:padding="2dp"
-					android:textColor="@color/textColorFragments"/>
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
 			<androidx.appcompat.widget.AppCompatTextView
 					android:id="@+id/server_domain_servers_changed"
 					android:layout_width="match_parent"
@@ -127,7 +139,7 @@
 					android:layout_height="wrap_content"
 					android:text="@string/domain_is_down"
 					android:padding="2dp"
-					android:textColor="@color/textColorFragments"/>
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
 			<androidx.appcompat.widget.AppCompatTextView
 					android:id="@+id/server_domain_is_down"
 					android:layout_width="match_parent"

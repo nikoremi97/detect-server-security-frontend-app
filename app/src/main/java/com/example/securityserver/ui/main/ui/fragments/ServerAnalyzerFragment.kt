@@ -23,6 +23,7 @@ import com.example.securityserver.utils.Utils
 import com.google.android.material.button.MaterialButton
 import org.json.JSONObject
 
+// ServerAnalyzerFragment is the fragment that analyze a new domain
 class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
 	companion object {
@@ -37,9 +38,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			}
 	}
 
-	/**
-	 * Components in fragments
-	 */
+	// Attributes in fragments
 	private var userInput: EditText? = null
 	private var domainInputText: String = ""
 	private var scanButton: MaterialButton? = null
@@ -52,6 +51,7 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		arguments?.let { }
 	}
 
+	// set attributes values when the view is created
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
@@ -71,17 +71,17 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		return scanAnalyzerView
 	}
 
+	// check if the domain is a valid input and calls scanDomain function
 	override fun onClick(v: View) {
 		val userInputText = userInput?.text.toString()
 		val isValidInput = userInputText.isValidDomain()
 		if (isValidInput) {
-			println("userInputText >>>>>")
-			println(userInputText)
 			domainInputText = userInputText
 			scanDomain(userInputText)
 		}
 	}
 
+	// this function creates a new JsonObjectRequest to be queued in VolleyRequestQueue at ServiceBaseSingleton
 	private fun scanDomain(domain: String) {
 		// starts to show progressCircularBar
 		progressCircularBar?.setContentView(R.layout.progress_bar_layout)
@@ -111,17 +111,16 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	}
 
 	//region Response from Volley Request region
+	// Handles an OK response from Volley
 	override fun onResponse(response: JSONObject) {
 		progressCircularBar?.dismiss()
 
-		println("response >>>")
-		println(response)
-		println(response.toString())
 		try {
 
-			// starts to show progressCircularBar
+			// parse the response and creates a newDomain object
 			val newDomain = Utils.parseDomain(response.toString())
 
+			// start a new DomainDetailsActivity with the newDomain
 			val intent = Intent(activity, DomainDetailsActivity::class.java)
 			val bundleObject = Bundle()
 			bundleObject.putSerializable("domain", newDomain)
@@ -137,9 +136,9 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		}
 	}
 
+	// Handles an ErrorResponse from Volley
 	override fun onErrorResponse(error: VolleyError) {
 		progressCircularBar?.dismiss()
-		println(error)
 		if (activity != null) {
 			Toast.makeText(activity, getString(R.string.cant_connect_server), Toast.LENGTH_LONG).show()
 		}

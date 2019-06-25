@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.item_server.view.*
 class RecyclerAdapterDetailsServer(currentServers: Array<DetailsServer>?) :
 	RecyclerView.Adapter<RecyclerAdapterDetailsServer.ViewHolder>() {
 
+	// attributes of RecyclerAdapterDetailsServer
 	var servers: Array<DetailsServer>? = null
 	private var viewHolder: ViewHolder? = null
 
@@ -19,6 +20,7 @@ class RecyclerAdapterDetailsServer(currentServers: Array<DetailsServer>?) :
 		this.servers = currentServers
 	}
 
+	// create a new ViewHolder object
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val fragmentList = LayoutInflater.from(parent.context).inflate(R.layout.item_server, parent, false)
 		viewHolder = ViewHolder(fragmentList)
@@ -26,10 +28,12 @@ class RecyclerAdapterDetailsServer(currentServers: Array<DetailsServer>?) :
 		return viewHolder!!
 	}
 
+	// return the size of the servers array
 	override fun getItemCount(): Int {
 		return this.servers?.size!!
 	}
 
+	// set ViewHolder object attributes
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
 		val server = servers!![position]
@@ -39,6 +43,7 @@ class RecyclerAdapterDetailsServer(currentServers: Array<DetailsServer>?) :
 		holder.owner?.text = server.owner
 	}
 
+	// Class ViewHolder which will contain our server details like address, sslGrade, country and owner
 	class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 		private val serverView = view
 		var address: AppCompatTextView? = null

@@ -7,4 +7,12 @@
   <color name="backgroundFragments">#EBEBEB</color>
   <color name="textColorFragments">#6F6D6D</color>
 
+  <!-- SSL grade indicator colors -->
+  <color name="A">#26FF00</color>
+  <color name="B">#E6FF00</color>
+  <color name="C">#FFD500</color>
+  <color name="D">#FFA200</color>
+  <color name="E">#FF4800</color>
+  <color name="F">#FF0000</color>
+
 </resources>
