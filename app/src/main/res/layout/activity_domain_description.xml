@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".ui.main.ui.domainDetails.DomainDetailsActivity" android:layout_marginHorizontal="8dp"
+		android:layout_marginTop="8dp">
+
+	<androidx.appcompat.widget.LinearLayoutCompat
+			android:id="@+id/domain_description_linear_layout"
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="15dp">
+		<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/domain_description_view_logo"
+				android:layout_width="70dp"
+				android:layout_height="70dp"
+				app:srcCompat="@drawable/security_server_color_primary_2"
+				android:layout_alignParentStart="true"
+				android:maxHeight="70dp"
+				android:maxWidth="70dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginLeft="8dp"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="0" android:layout_gravity="center"/>
+		<androidx.appcompat.widget.LinearLayoutCompat
+				android:id="@+id/domain_description_view_layout_title"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:layout_weight="1">
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/domain_description_view_domain"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="www.averylong.domain.com"
+					android:textSize="24sp"/>
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/domain_description_view_domain_title"
+					android:text="Title very long like this manTitle very long like this man"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="20dp"/>
+		</androidx.appcompat.widget.LinearLayoutCompat>
+
+	</androidx.appcompat.widget.LinearLayoutCompat>
+
+	<TableLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textAlignment="textStart"
+			android:layout_marginBottom="10dp"
+			android:stretchColumns="1">
+
+		<TableRow
+				android:minHeight="20dp"
+				android:layout_width="wrap_content">
+			<androidx.appcompat.widget.AppCompatTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/domain_ssl_grade"
+					android:padding="2dp"
+					android:textColor="@color/textColorFragments" android:layout_weight="1" android:textSize="16sp"/>
+			<androidx.appcompat.widget.LinearLayoutCompat
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:orientation="horizontal"
+			>
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/server_domain_ssl_grade"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:text="A"
+					android:padding="2dp"
+					android:paddingStart="4dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/server_domain_ssl_indicator"
+					android:layout_marginLeft="2dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/ssl_indicator_f"
+					android:layout_gravity="center"
+			/>
+			</androidx.appcompat.widget.LinearLayoutCompat>
+		</TableRow>
+
+		<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			<androidx.appcompat.widget.AppCompatTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/domain_previous_ssl_grade"
+					android:padding="2dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/server_domain_previous_ssl_grade"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:text="A"
+					android:padding="2dp"
+					android:paddingStart="4dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+		</TableRow>
+
+
+		<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			<androidx.appcompat.widget.AppCompatTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/domain_servers_changed"
+					android:padding="2dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/server_domain_servers_changed"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:text="true"
+					android:padding="2dp"
+					android:paddingStart="4dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+		</TableRow>
+
+
+		<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			<androidx.appcompat.widget.AppCompatTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/domain_is_down"
+					android:padding="2dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/server_domain_is_down"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:text="false"
+					android:padding="2dp"
+					android:paddingStart="4dp"
+					android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+		</TableRow>
+	</TableLayout>
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/domain_servers"
+			android:textSize="18sp"
+			android:paddingStart="2dp"
+			android:layout_marginBottom="10dp"
+	/>
+
+	<ScrollView
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recycler_view_servers_list"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+	</ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

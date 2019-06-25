@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+  <color name="colorPrimary">#453cff</color>
+  <color name="colorPrimaryDark">#000cca</color>
+  <color name="colorAccent">#00BCD4</color>
+  <color name="white">#FFFFFF</color>
+  <color name="backgroundFragments">#EBEBEB</color>
+  <color name="textColorFragments">#6F6D6D</color>
+
+  <!-- SSL grade indicator colors -->
+  <color name="A">#26FF00</color>
+  <color name="B">#E6FF00</color>
+  <color name="C">#FFD500</color>
+  <color name="D">#FFA200</color>
+  <color name="E">#FF4800</color>
+  <color name="F">#FF0000</color>
+
 </resources>
