@@ -1,5 +1,5 @@
 package com.example.securityserver.data
-
+import java.io.Serializable
 /**
  * StoredDomains Class
  */
@@ -16,8 +16,8 @@ data class Domain(
 	var previous_ssl_grade: String,
 	val logo: String,
 	val title: String,
-	var is_down: Boolean = false
-)
+	var is_down: Boolean
+): Serializable
 
 /**
  * DetailsServer Class
@@ -27,5 +27,5 @@ data class DetailsServer(
 	val ssl_grade: String,
 	val country: String,
 	val owner: String
-)
+): Serializable
 

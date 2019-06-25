@@ -8,22 +8,22 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+  <androidx.viewpager.widget.ViewPager
+          android:id="@+id/view_pager"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:background="@color/cardview_light_background"
+    >
 
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
-                android:background="@color/cardview_light_background"
-        >
+    </com.google.android.material.tabs.TabLayout>
 
-        </com.google.android.material.tabs.TabLayout>
-
-   </androidx.viewpager.widget.ViewPager>
+  </androidx.viewpager.widget.ViewPager>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

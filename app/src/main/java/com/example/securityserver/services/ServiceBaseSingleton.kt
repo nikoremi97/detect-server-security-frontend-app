@@ -9,9 +9,11 @@ import com.example.securityserver.data.StoredDomains
 import com.google.gson.Gson
 
 class ServiceBaseSingleton constructor(context: Context) {
+
 	companion object {
 		@Volatile
 		private var INSTANCE: ServiceBaseSingleton? = null
+
 		fun getInstance(context: Context) =
 			INSTANCE ?: synchronized(this) {
 				INSTANCE ?: ServiceBaseSingleton(context).also {
@@ -19,37 +21,17 @@ class ServiceBaseSingleton constructor(context: Context) {
 				}
 			}
 	}
+
+	// Create Volley RequestQueue
 	private val requestQueue: RequestQueue by lazy {
 		// applicationContext is key, it keeps you from leaking the
 		// Activity or BroadcastReceiver if someone passes one in.
 		Volley.newRequestQueue(context.applicationContext)
 	}
+
+	// Add request to Queue
 	fun <T> addToRequestQueue(req: Request<T>) {
 		requestQueue.add(req)
 	}
 
-	fun parseStoredDomains(content: String?): StoredDomains? {
-		if (content != null) {
-			try {
-				return Gson().fromJson(content, StoredDomains::class.java)
-
-			} catch (e: Exception) {
-				print("error gson >>>")
-				print(e)
-			}
-		}
-		return null
-	}
-	fun parseDomain(content: String?): Domain? {
-		if (content != null) {
-			try {
-				return Gson().fromJson(content, Domain::class.java)
-
-			} catch (e: Exception) {
-				print("error gson >>>")
-				print(e)
-			}
-		}
-		return null
-	}
 }

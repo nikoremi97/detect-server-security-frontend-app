@@ -18,40 +18,32 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) :
 	private var viewHolder: ViewHolder? = null
 
 	init {
-		println("inside recycler view >>>")
 		this.domains = currentDomains
-		println("domains inside recycler view  >>>")
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		println("inside onCreateViewHolder >>>")
 		val fragmentList = LayoutInflater.from(parent.context).inflate(R.layout.item_domain, parent, false)
 		viewHolder = ViewHolder(fragmentList)
 
 		return viewHolder!!
 	}
 
-	// TODO
 	override fun getItemCount(): Int {
-
-		println("inside getItemCount >>>")
-		println(this.domains?.size!!)
 		return this.domains?.size!!
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		println("inside onBindViewHolder >>>")
-
 		val domain = domains!![position]
 		print(domain)
 		holder.updateWithUrl(domain.logo)
+
 		holder.name?.text = domain.domain
 		holder.title?.text = domain.title
 		holder.sslGrade?.text = domain.ssl_grade
 	}
 
 	class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		val itemDomainView = view
+		private val itemDomainView = view
 
 		var logo: AppCompatImageView? = null
 		var name: AppCompatTextView? = null
@@ -69,14 +61,10 @@ class RecyclerAdapterAServersHistory(currentDomains: Array<Domain>?) :
 		 * To change card icons with domain logos
 		 */
 		fun updateWithUrl(url: String) {
-			println("here in updateWithUrl >>>")
-			println(url)
 			try {
-				Picasso.get().load(url).error(R.drawable.server).resize(70, 70).centerCrop().into(logo)
-				println("picasso success >>>")
+				Picasso.get().load(url).error(R.drawable.security_server_color_primary).resize(70, 70).centerCrop().into(logo)
 			} catch (e: Exception) {
 				println(e)
-
 			}
 		}
 	}

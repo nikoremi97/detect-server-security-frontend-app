@@ -13,8 +13,21 @@
 	<string name="new_domain_endpoint">"/newServer"</string>
 
 	<!-- Responses texts-->
-	<string name="cant_connect_server">Ups! Can´t connect with server right now. Try again! </string>
-	<string name="cant_scan_server">Ups! Something went wrong scanning that domain. Try with other! </string>
+	<string name="cant_connect_server">Ups! Can´t connect with server right now. Try again!</string>
+	<string name="cant_scan_server">Ups! Something went wrong scanning that domain. Try with other!</string>
 	<string name="invalid_user_input">Please type a valid domain</string>
+
+	<!-- Domain Description -->
+	<string name="domain_details">Domain Details</string>
+	<string name="domain_ssl_grade">SSL Grade:</string>
+	<string name="domain_previous_ssl_grade">Previous SSL Grade:</string>
+	<string name="domain_servers_changed">Servers have changed:</string>
+	<string name="domain_is_down">Is down:</string>
+	<string name="domain_servers">Servers:</string>
+	<!-- Server Description -->
+	<string name="server_address">Address:</string>
+	<string name="server_ssl">SSL:</string>
+	<string name="server_country">Country:</string>
+	<string name="server_owner">Owner:</string>
 
 </resources>

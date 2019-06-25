@@ -18,8 +18,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.example.securityserver.R
 import com.example.securityserver.data.Domain
 import com.example.securityserver.services.ServiceBaseSingleton
+import com.example.securityserver.utils.Utils
 import org.json.JSONObject
-
 
 class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener,
 	SwipeRefreshLayout.OnRefreshListener {
@@ -39,21 +39,22 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			}
 	}
 
+	/**
+	 * Components in ServerHistoryFragment
+	 */
 	// domainList will show our Domains in a RecyclerView
 	private var domainList: RecyclerView? = null
 	// Swipe refresh layout that allows to refresh servers pulling down the screen
 	private var swipeRefreshDomains: SwipeRefreshLayout? = null
-
 	// ProgressBar dialog
 	private var progressCircularBar: Dialog? = null
 	// arrayDomain will contain the domains to put into domainList
 	private var arrayDomain = arrayOf<Domain>()
 	private var emptyDomainView: View? = null
-
 	// recycler adapter to insert Domains in DB
 	private val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
 
-
+	//region Functions
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		arguments?.let { }
@@ -72,13 +73,11 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		// config recycler view values
 		domainList = viewServerHistory.findViewById(R.id.recycler_view_list_domains)
 		domainList?.layoutManager = layoutManager
+		domainList?.adapter = recyclerAdapter
 
 		// empty view in recycler view
 		emptyDomainView= viewServerHistory.findViewById(R.id.empty_domain_layout)
 
-		// set AdapterDataObserver to adapter to show empty domain View
-
-		domainList?.adapter = recyclerAdapter
 		checkEmpty()
 
 		// associate swipeRefreshDomains to its layout item
@@ -117,6 +116,7 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		}
 	}
 
+
 	// onRefresh is called every time fragment is swiped down
 	override fun onRefresh() {
 		getDomainsInDB()
@@ -128,12 +128,14 @@ class ServersHistoryFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		emptyDomainView?.visibility = if (recyclerAdapter.itemCount == 0) View.VISIBLE else View.GONE
 		domainList?.visibility = if (recyclerAdapter.itemCount == 0) View.GONE else View.VISIBLE
 	}
+	//endregion
+
 	//region Response from Volley Request region
 	override fun onResponse(response: JSONObject) {
 		progressCircularBar?.dismiss()
 		try {
-			val storedDomains = ServiceBaseSingleton.getInstance(context!!).parseStoredDomains(response.toString())
-			arrayDomain = arrayDomain.plus(storedDomains!!.items)
+			val storedDomains = Utils.parseStoredDomains(response.toString())
+			arrayDomain = storedDomains!!.items
 
 //			val recyclerAdapter = RecyclerAdapterAServersHistory(arrayDomain)
 			recyclerAdapter.domains = arrayDomain

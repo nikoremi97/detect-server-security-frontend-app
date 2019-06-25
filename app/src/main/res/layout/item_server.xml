@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:background="@color/white"
+		android:layout_height="wrap_content">
+
+	<com.google.android.material.card.MaterialCardView
+			android:id="@+id/material_card_view_server_details"
+			app:cardCornerRadius="5dp"
+			android:layout_margin="5dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" app:cardElevation="5dp">
+
+		<TableLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:stretchColumns="1"
+				android:textAlignment="textStart"
+				android:layout_margin="5dp">
+
+			<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/server_address"
+						android:padding="2dp"
+						android:textColor="@color/textColorFragments"/>
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/server_ip_address"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="A"
+						android:padding="2dp"
+						android:paddingStart="4dp"
+						android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			</TableRow>
+
+			<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/server_ssl"
+						android:padding="2dp"
+						android:textColor="@color/textColorFragments"/>
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/server_ssl_grade"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="A"
+						android:padding="2dp"
+						android:paddingStart="4dp"
+						android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			</TableRow>
+
+			<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/server_country"
+						android:padding="2dp"
+						android:textColor="@color/textColorFragments"/>
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/server_country"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="-"
+						android:padding="2dp"
+						android:paddingStart="4dp"
+						android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			</TableRow>
+
+			<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+				<androidx.appcompat.widget.AppCompatTextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/server_owner"
+						android:padding="2dp"
+						android:textColor="@color/textColorFragments"/>
+				<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/server_owner"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="-"
+						android:padding="2dp"
+						android:paddingStart="4dp"
+						android:textColor="@color/textColorFragments" android:textSize="16sp"/>
+			</TableRow>
+
+		</TableLayout>
+
+	</com.google.android.material.card.MaterialCardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

@@ -1,7 +1,7 @@
 package com.example.securityserver.ui.main.ui.fragments
 
 import android.app.Dialog
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,9 +18,10 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.securityserver.R
 import com.example.securityserver.services.ServiceBaseSingleton
+import com.example.securityserver.ui.main.ui.domainDetails.DomainDetailsActivity
+import com.example.securityserver.utils.Utils
 import com.google.android.material.button.MaterialButton
 import org.json.JSONObject
-
 
 class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
@@ -36,16 +37,15 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 			}
 	}
 
-	private var listener: OnFragmentInteractionListener? = null
-
-	// Components in fragments
+	/**
+	 * Components in fragments
+	 */
 	private var userInput: EditText? = null
 	private var domainInputText: String = ""
 	private var scanButton: MaterialButton? = null
 
 	// ProgressBar dialog
 	private var progressCircularBar: Dialog? = null
-
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -82,22 +82,6 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		}
 	}
 
-	/**
-	 * This interface must be implemented by activities that contain this
-	 * fragment to allow an interaction in this fragment to be communicated
-	 * to the activity and potentially other fragments contained in that
-	 * activity.
-	 *
-	 *
-	 * See the Android Training lesson [Communicating with Other Fragments]
-	 * (http://developer.android.com/training/basics/fragments/communicating.html)
-	 * for more information.
-	 */
-	interface OnFragmentInteractionListener {
-		// TODO: Update argument type and name
-		fun onFragmentInteraction(uri: Uri)
-	}
-
 	private fun scanDomain(domain: String) {
 		// starts to show progressCircularBar
 		progressCircularBar?.setContentView(R.layout.progress_bar_layout)
@@ -124,7 +108,6 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 				Toast.makeText(activity, getString(R.string.cant_scan_server), Toast.LENGTH_LONG).show()
 			}
 		}
-
 	}
 
 	//region Response from Volley Request region
@@ -136,7 +119,15 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 		println(response.toString())
 		try {
 
-			val newDomain = ServiceBaseSingleton.getInstance(context!!).parseDomain(response.toString())
+			// starts to show progressCircularBar
+			val newDomain = Utils.parseDomain(response.toString())
+
+			val intent = Intent(activity, DomainDetailsActivity::class.java)
+			val bundleObject = Bundle()
+			bundleObject.putSerializable("domain", newDomain)
+			intent.putExtras(bundleObject)
+			startActivity(intent)
+
 
 		} catch (e: Exception) {
 			println(e)
@@ -187,8 +178,4 @@ class ServerAnalyzerFragment : Fragment(), Response.Listener<JSONObject>, Respon
 	private fun String.isValidDomain(): Boolean = Patterns.DOMAIN_NAME.matcher(this).matches()
 	//endregion
 
-	override fun onDetach() {
-		super.onDetach()
-		listener = null
-	}
 }

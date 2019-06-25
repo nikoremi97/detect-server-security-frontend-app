@@ -19,11 +19,14 @@
 			<androidx.appcompat.widget.AppCompatImageView
 					android:id="@+id/material_card_view_logo"
 					android:layout_width="70dp"
-					android:layout_height="70dp" app:srcCompat="@mipmap/ic_launcher_round"
+					android:layout_height="70dp"
+					app:srcCompat="@drawable/security_server_color_primary_2"
 					android:layout_alignParentStart="true"
 					android:maxHeight="70dp"
 					android:maxWidth="70dp"
-					android:layout_marginStart="8dp" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginLeft="8dp"
+					android:layout_marginEnd="8dp"
 					android:layout_weight="0" android:layout_gravity="center"/>
 			<LinearLayout
 					android:id="@+id/material_card_view_linear_layout_data"
@@ -35,7 +38,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:text="www.averylong.domain.com"
-						android:textSize="24sp"/>
+						android:textSize="22sp"/>
 				<androidx.appcompat.widget.AppCompatTextView
 						android:id="@+id/material_card_title"
 						android:text="Title very long like this manTitle very long like this man"
